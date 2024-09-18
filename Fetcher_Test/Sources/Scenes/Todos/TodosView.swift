@@ -2,9 +2,14 @@ import SwiftUI
 
 struct TodosView: View {
     @EnvironmentObject private var colorManager: ColorManager
+    @Environment(\.presentationMode) private var presentationMode
     
     var body: some View {
-        CustomNavigationBar(title: "Todos", action: { }, showBackButton: true) {
+        CustomNavigationBar(
+            title: "Todos",
+            action: { presentationMode.wrappedValue.dismiss() },
+            showBackButton: true
+        ) {
             VStack {
                 InfoView(text: "Tap on the todo to change status")
                     .padding(.top, 60)
@@ -18,7 +23,7 @@ struct TodosView: View {
                 Spacer()
                 
                 Button {
-                    
+                    presentationMode.wrappedValue.dismiss()
                 } label: {
                     Text("Done")
                         .font(.system(size: 14))
@@ -32,6 +37,7 @@ struct TodosView: View {
                 .padding(.bottom, 20)
             }
         }
+        .navigationBarBackButtonHidden()
     }
 }
 

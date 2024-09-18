@@ -1,8 +1,8 @@
 import Foundation
 
 final class NetworkManager {
-    func getData() async throws -> Data {
-        guard let url = createURL(), let urlRequest = createRequest(url: url) else {
+    func getData(forUser userId: Int? = nil) async throws -> Data {
+        guard let url = createURL(forUser: userId), let urlRequest = createRequest(url: url) else {
             throw NetworkError.invalidResponse
         }
         
@@ -32,11 +32,14 @@ final class NetworkManager {
 }
 
 private extension NetworkManager {
-    func createURL() -> URL? {
+    func createURL(forUser userId: Int? = nil) -> URL? {
         var components = URLComponents()
         components.scheme = "https"
         components.host = "jsonplaceholder.typicode.com"
         components.path = "/todos"
+        if let userId = userId {
+            components.queryItems = [URLQueryItem(name: "userId", value: "\(userId)")]
+        }
         return components.url
     }
     

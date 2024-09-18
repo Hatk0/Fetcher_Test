@@ -2,7 +2,8 @@ import SwiftUI
 
 struct BottomButtonsView: View {
     @EnvironmentObject private var colorManager: ColorManager
-
+    @StateObject private var mainViewModel = MainViewModel()
+    
     @State private var isToggled = false
     
     var body: some View {
@@ -12,9 +13,7 @@ struct BottomButtonsView: View {
                 .opacity(0.4)
                 .frame(width: 343, height: 60)
             
-            Button {
-                
-            } label: {
+            NavigationLink(destination: TodosView()) {
                 Text("Show Results")
                     .font(.system(size: 14))
                     .foregroundColor(.black)
@@ -26,12 +25,13 @@ struct BottomButtonsView: View {
             }
             .padding(.trailing, 160)
             
-            ToggleSwitchView(isToggled: $isToggled)
+            ToggleSwitchView(isToggled: $mainViewModel.isToggled)
+                .onChange(of: mainViewModel.isToggled) { _ in
+                    Task {
+                        await mainViewModel.fetchBreweries()
+                    }
+                }
                 .padding(.leading, 235)
         }
     }
-}
-
-#Preview {
-    BottomButtonsView()
 }
