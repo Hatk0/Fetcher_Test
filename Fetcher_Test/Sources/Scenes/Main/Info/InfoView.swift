@@ -11,25 +11,27 @@ struct InfoView: View {
                 .opacity(0.4)
                 .frame(width: 343, height: 60)
             
-            HStack {
-                switch state {
-                case .loading:
-                    ProgressView()
-                        .progressViewStyle(CircularProgressViewStyle())
-                        .frame(width: 18, height: 22)
-                case .success:
-                    Image(systemName: "exclamationmark.circle.fill")
-                        .resizable()
-                        .frame(width: 23, height: 23)
-                case .idle:
-                    Image(systemName: "hand.tap")
-                        .resizable()
-                        .frame(width: 18, height: 22)
+            VStack(alignment: .leading) {
+                HStack {
+                    switch state {
+                    case .loading:
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle())
+                            .padding(.leading, -25)
+                    case .success:
+                        Image(systemName: "exclamationmark.circle.fill")
+                            .resizable()
+                            .frame(width: 23, height: 23)
+                    case .idle:
+                        Image(systemName: "hand.tap")
+                            .resizable()
+                            .frame(width: 18, height: 22)
+                    }
+                    
+                    Text(text)
+                        .font(.custom("IBMPlexSans-Medium", size: 14))
+                        .padding(.leading, 10)
                 }
-                
-                Text(text)
-                    .font(.custom("IBMPlexSans-Medium", size: 14))
-                    .padding(.leading, 10)
             }
             .foregroundColor(.white)
             .opacity(0.7)
