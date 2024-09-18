@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct BottomButtonsView: View {
+struct ButtonControlsView: View {
     @EnvironmentObject private var colorManager: ColorManager
     @ObservedObject var mainViewModel: MainViewModel
     
@@ -33,7 +33,7 @@ struct BottomButtonsView: View {
                         await mainViewModel.fetchToDos()
                     }
                 }
-                .padding(.leading, 235)
+                .padding(.leading, 245)
         }
     }
     

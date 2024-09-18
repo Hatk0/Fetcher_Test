@@ -25,7 +25,7 @@ struct MainView: View {
                     InfoView(state: infoViewState, text: infoText)
                         .padding(.vertical)
                     
-                    BottomButtonsView(
+                    ButtonControlsView(
                         mainViewModel: mainViewModel,
                         isFetching: $isFetching,
                         infoText: $infoText
