@@ -1,10 +1,3 @@
-//
-//  Fetcher_TestApp.swift
-//  Fetcher_Test
-//
-//  Created by Dmitry Yastrebov on 18.09.2024.
-//
-
 import SwiftUI
 
 @main
