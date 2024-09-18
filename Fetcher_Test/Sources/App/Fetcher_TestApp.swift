@@ -2,9 +2,13 @@ import SwiftUI
 
 @main
 struct Fetcher_TestApp: App {
+    @StateObject private var colorManager = ColorManager(initialColorScheme: .dark)
+
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            MainView()
+                .environmentObject(colorManager)
+                .preferredColorScheme(.dark)
         }
     }
 }
