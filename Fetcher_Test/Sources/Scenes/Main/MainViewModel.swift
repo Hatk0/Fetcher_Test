@@ -2,7 +2,7 @@ import Foundation
 
 class MainViewModel: ObservableObject {
     @Published var networkManager = NetworkManager()
-    @Published var isToggled: Bool = false // Toggle state
+    @Published var isToggled: Bool = false
     
     func fetchBreweries() async {
         let userId: Int? = isToggled ? 5 : nil

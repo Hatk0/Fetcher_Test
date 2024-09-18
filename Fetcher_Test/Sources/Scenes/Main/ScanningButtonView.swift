@@ -3,38 +3,38 @@ import SwiftUI
 struct ScanningButtonView: View {
     @EnvironmentObject private var colorManager: ColorManager
 
+    @Binding var isAnimating: Bool
+    let action: () -> Void
+
     @State private var isButtonPressed = false
-    @State private var isAnimated = false
-    
+    @State private var circleSize: CGFloat = 320
+    @State private var innerCircleSize: CGFloat = 260
+    @State private var middleCircleSize: CGFloat = 210
+    @State private var centerCircleSize: CGFloat = 160
+
     var body: some View {
         VStack {
             Button {
-                isButtonPressed = true
-                withAnimation(
-                    .easeInOut(duration: 1.4)
-                    .repeatForever(autoreverses: true)
-                ) {
-                    isAnimated.toggle()
-                }
+                action()
             } label: {
                 ZStack {
                     Circle()
-                        .frame(width: isAnimated ? 264 : 320, height: isAnimated ? 264 : 320)
+                        .frame(width: circleSize, height: circleSize)
                         .foregroundColor(isButtonPressed ? colorManager.fourthGreenColor : colorManager.lightBlackColor)
                         .opacity(0.3)
-                    
+
                     Circle()
-                        .frame(width: isAnimated ? 240 : 260, height: isAnimated ? 240 : 260)
+                        .frame(width: innerCircleSize, height: innerCircleSize)
                         .foregroundColor(isButtonPressed ? colorManager.thirdGreenColor : colorManager.secondDarkGrayColor)
-                    
+
                     Circle()
-                        .frame(width: 210, height: 210)
+                        .frame(width: middleCircleSize, height: middleCircleSize)
                         .foregroundColor(isButtonPressed ? colorManager.secondGreenColor : colorManager.darkGrayColor)
-                    
+
                     Circle()
-                        .frame(width: 160, height: 160)
+                        .frame(width: centerCircleSize, height: centerCircleSize)
                         .foregroundColor(isButtonPressed ? colorManager.firstGreenColor : colorManager.grayColor)
-                    
+
                     Image(systemName: "wifi")
                         .resizable()
                         .scaledToFit()
@@ -44,5 +44,25 @@ struct ScanningButtonView: View {
             }
         }
         .padding()
+        .onChange(of: isAnimating) { newValue in
+            if newValue {
+                withAnimation(
+                    .easeInOut(duration: 1.4)
+                        .repeatForever(autoreverses: true)
+                ) {
+                    isButtonPressed = true
+                    circleSize = 264
+                    innerCircleSize = 240
+                }
+            } else {
+                withAnimation(.easeInOut(duration: 0.5)) {
+                    isButtonPressed = false
+                    circleSize = 320
+                    innerCircleSize = 260
+                    middleCircleSize = 210
+                    centerCircleSize = 160
+                }
+            }
+        }
     }
 }
