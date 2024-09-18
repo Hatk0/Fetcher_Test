@@ -1,8 +1,8 @@
 import Foundation
 
-struct Model: Codable {
+struct Model: Identifiable, Codable {
     let userId: Int
     let id: Int
     let title: String
-    let completed: Bool
+    var completed: Bool
 }

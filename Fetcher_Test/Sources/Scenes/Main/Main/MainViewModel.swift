@@ -10,16 +10,22 @@ class MainViewModel: ObservableObject {
         isToggled ? 5 : nil
     }
     
-    func fetchBreweries() async {
+    func fetchToDos() async {
         do {
             let data = try await networkManager.getData(forUser: userId)
-            let decodedTodos = try networkManager.decodeBreweryData(data)
+            let decodedTodos = try networkManager.decodeData(data)
             
             DispatchQueue.main.async {
                 self.todos = decodedTodos
             }
         } catch {
             print("Error fetching todos: \(error)")
+        }
+    }
+    
+    func toggleTodoStatus(id: Int) {
+        if let index = todos.firstIndex(where: { $0.id == id }) {
+            todos[index].completed.toggle()
         }
     }
     

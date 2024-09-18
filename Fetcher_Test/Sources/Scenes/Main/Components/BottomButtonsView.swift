@@ -30,7 +30,7 @@ struct BottomButtonsView: View {
             ToggleSwitchView(isToggled: $mainViewModel.isToggled, isFetching: $isFetching)
                 .onChange(of: mainViewModel.isToggled) { _ in
                     Task {
-                        await mainViewModel.fetchBreweries()
+                        await mainViewModel.fetchToDos()
                     }
                 }
                 .padding(.leading, 235)

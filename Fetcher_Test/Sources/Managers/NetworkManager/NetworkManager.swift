@@ -20,7 +20,7 @@ final class NetworkManager {
         }
     }
     
-    func decodeBreweryData(_ data: Data) throws -> [Model] {
+    func decodeData(_ data: Data) throws -> [Model] {
         let decoder = JSONDecoder()
         do {
             let result = try decoder.decode([Model].self, from: data)

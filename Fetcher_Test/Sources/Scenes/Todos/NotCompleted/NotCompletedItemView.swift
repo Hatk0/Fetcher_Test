@@ -1,7 +1,8 @@
 import SwiftUI
 
 struct NotCompletedItemView: View {
-    var title: String
+    var todo: Model
+    var onTap: (Model) -> Void
     
     var body: some View {
         HStack {
@@ -17,14 +18,17 @@ struct NotCompletedItemView: View {
                     .frame(width: 15, height: 15)
             }
             
-            Text(title)
+            Text(todo.title)
                 .font(.custom("IBMPlexSans-Medium", size: 17))
             
             Spacer()
-            
+    
             Circle()
                 .frame(width: 13, height: 13)
                 .foregroundColor(.red)
+        }
+        .onTapGesture {
+            onTap(todo)
         }
     }
 }

@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct CompletedListView: View {
-    let completedTodos: [Model]
+    @ObservedObject var mainViewModel: MainViewModel
     
     var body: some View {
         VStack(alignment: .leading) {
@@ -11,9 +11,11 @@ struct CompletedListView: View {
             Divider()
             
             ScrollView {
-                ForEach(completedTodos, id: \.id) { todo in
-                    CompletedItemView(title: todo.title)
-                        .padding(.top, 10)
+                ForEach(mainViewModel.completedTodos) { todo in
+                    CompletedItemView(todo: todo) { updatedTodo in
+                        mainViewModel.toggleTodoStatus(id: updatedTodo.id)
+                    }
+                    .padding(.top, 10)
                 }
             }
         }

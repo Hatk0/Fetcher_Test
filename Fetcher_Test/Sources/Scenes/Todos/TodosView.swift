@@ -15,11 +15,15 @@ struct TodosView: View {
                 InfoView(state: .idle, text: "Tap on the todo to change status")
                     .padding(.top, 60)
                 
-                NotCompletedListView(notCompletedTodos: mainViewModel.notCompletedTodos)
-                    .padding(.top, 20)
+                if !mainViewModel.notCompletedTodos.isEmpty {
+                    NotCompletedListView(mainViewModel: mainViewModel)
+                        .padding(.top, 20)
+                }
                 
-                CompletedListView(completedTodos: mainViewModel.completedTodos)
-                    .padding(.top, 20)
+                if !mainViewModel.completedTodos.isEmpty {
+                    CompletedListView(mainViewModel: mainViewModel)
+                        .padding(.top, 20)
+                }
                 
                 Spacer()
                 

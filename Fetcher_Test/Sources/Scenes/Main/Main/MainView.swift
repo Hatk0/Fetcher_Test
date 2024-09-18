@@ -18,7 +18,7 @@ struct MainView: View {
                 VStack {
                     Spacer()
                     
-                    ScanningButtonView(isAnimating: $isAnimating, action: fetchBreweries)
+                    ScanningButtonView(isAnimating: $isAnimating, action: fetchTodos)
                     
                     Spacer()
                     
@@ -33,10 +33,15 @@ struct MainView: View {
                     .padding(.bottom, 30)
                 }
             }
+            .onAppear {
+                resetState()
+            }
         }
     }
-    
-    private func fetchBreweries() {
+}
+
+private extension MainView {
+    func fetchTodos() {
         infoViewState = .loading
         infoText = "It’ll take a couple of seconds"
         isFetching = true
@@ -44,7 +49,7 @@ struct MainView: View {
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 8) {
             Task {
-                await mainViewModel.fetchBreweries()
+                await mainViewModel.fetchToDos()
                 
                 DispatchQueue.main.async {
                     infoViewState = .success
@@ -54,5 +59,14 @@ struct MainView: View {
                 }
             }
         }
+    }
+    
+    func resetState() {
+        infoViewState = .idle
+        infoText = "Tap on the button to fetch todos"
+        isFetching = false
+        isAnimating = false
+        showTodos = false
+        mainViewModel.isToggled = false
     }
 }
