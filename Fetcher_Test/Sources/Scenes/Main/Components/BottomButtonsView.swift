@@ -2,12 +2,10 @@ import SwiftUI
 
 struct BottomButtonsView: View {
     @EnvironmentObject private var colorManager: ColorManager
-    @StateObject private var mainViewModel = MainViewModel()
+    @ObservedObject var mainViewModel: MainViewModel
     
     @Binding var isFetching: Bool
     @Binding var infoText: String
-
-    @State private var isToggled = false
     
     var body: some View {
         ZStack {
@@ -16,7 +14,7 @@ struct BottomButtonsView: View {
                 .opacity(0.4)
                 .frame(width: 343, height: 60)
             
-            NavigationLink(destination: TodosView()) {
+            NavigationLink(destination: TodosView(mainViewModel: mainViewModel)) {
                 Text("Show Results")
                     .font(.system(size: 14))
                     .foregroundColor(.black)

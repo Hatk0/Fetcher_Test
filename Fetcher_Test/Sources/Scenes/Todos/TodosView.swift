@@ -3,6 +3,7 @@ import SwiftUI
 struct TodosView: View {
     @EnvironmentObject private var colorManager: ColorManager
     @Environment(\.presentationMode) private var presentationMode
+    @ObservedObject var mainViewModel: MainViewModel
     
     var body: some View {
         CustomNavigationBar(
@@ -14,10 +15,10 @@ struct TodosView: View {
                 InfoView(state: .idle, text: "Tap on the todo to change status")
                     .padding(.top, 60)
                 
-                NotCompletedListView()
+                NotCompletedListView(notCompletedTodos: mainViewModel.notCompletedTodos)
                     .padding(.top, 20)
                 
-                CompletedListView()
+                CompletedListView(completedTodos: mainViewModel.completedTodos)
                     .padding(.top, 20)
                 
                 Spacer()
@@ -39,8 +40,4 @@ struct TodosView: View {
         }
         .navigationBarBackButtonHidden()
     }
-}
-
-#Preview {
-    TodosView()
 }

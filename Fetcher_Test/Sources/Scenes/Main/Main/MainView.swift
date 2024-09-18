@@ -6,10 +6,15 @@ struct MainView: View {
     @State private var infoText: String = "Tap on the button to fetch todos"
     @State private var isFetching: Bool = false
     @State private var isAnimating: Bool = false
-
+    @State private var showTodos: Bool = false
+    
     var body: some View {
         NavigationView {
-            CustomNavigationBar(title: "Fetcher", action: { }, showBackButton: false) {
+            CustomNavigationBar(
+                title: "Fetcher",
+                action: { },
+                showBackButton: false
+            ) {
                 VStack {
                     Spacer()
                     
@@ -20,8 +25,12 @@ struct MainView: View {
                     InfoView(state: infoViewState, text: infoText)
                         .padding(.vertical)
                     
-                    BottomButtonsView(isFetching: $isFetching, infoText: $infoText)
-                        .padding(.bottom, 30)
+                    BottomButtonsView(
+                        mainViewModel: mainViewModel,
+                        isFetching: $isFetching,
+                        infoText: $infoText
+                    )
+                    .padding(.bottom, 30)
                 }
             }
         }

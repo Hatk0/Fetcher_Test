@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct NotCompletedItemView: View {
+    var title: String
+    
     var body: some View {
         HStack {
             ZStack {
@@ -15,18 +17,14 @@ struct NotCompletedItemView: View {
                     .frame(width: 15, height: 15)
             }
             
-            Text("Buy Butter")
+            Text(title)
                 .font(.custom("IBMPlexSans-Medium", size: 17))
             
             Spacer()
-    
+            
             Circle()
                 .frame(width: 13, height: 13)
                 .foregroundColor(.red)
         }
     }
-}
-
-#Preview {
-    NotCompletedItemView()
 }

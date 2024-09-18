@@ -1,7 +1,7 @@
 import SwiftUI
 
 struct CompletedItemView: View {
-    @EnvironmentObject private var colorManager: ColorManager
+    var title: String
     
     var body: some View {
         HStack {
@@ -17,18 +17,14 @@ struct CompletedItemView: View {
                     .frame(width: 15, height: 15)
             }
             
-            Text("Buy Bread")
+            Text(title)
                 .font(.custom("IBMPlexSans-Medium", size: 17))
             
             Spacer()
             
             Circle()
                 .frame(width: 13, height: 13)
-                .foregroundColor(colorManager.greenColor)
+                .foregroundColor(.green)
         }
     }
-}
-
-#Preview {
-    CompletedItemView()
 }

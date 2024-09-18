@@ -1,6 +1,8 @@
 import SwiftUI
 
 struct NotCompletedListView: View {
+    let notCompletedTodos: [Model]
+    
     var body: some View {
         VStack(alignment: .leading) {
             Text("Not completed")
@@ -8,13 +10,13 @@ struct NotCompletedListView: View {
             
             Divider()
             
-            NotCompletedItemView()
-                .padding(.top, 10)
+            ScrollView {
+                ForEach(notCompletedTodos, id: \.id) { todo in
+                    NotCompletedItemView(title: todo.title)
+                        .padding(.top, 10)
+                }
+            }
         }
         .padding(.horizontal, 30)
     }
-}
-
-#Preview {
-    NotCompletedListView()
 }
