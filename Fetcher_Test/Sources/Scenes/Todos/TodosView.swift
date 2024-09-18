@@ -11,8 +11,8 @@ struct TodosView: View {
             showBackButton: true
         ) {
             VStack {
-//                InfoView(text: "Tap on the todo to change status")
-//                    .padding(.top, 60)
+                InfoView(state: .idle, text: "Tap on the todo to change status")
+                    .padding(.top, 60)
                 
                 NotCompletedListView()
                     .padding(.top, 20)

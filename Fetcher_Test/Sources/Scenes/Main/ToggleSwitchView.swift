@@ -4,17 +4,19 @@ struct ToggleSwitchView: View {
     @EnvironmentObject private var colorManager: ColorManager
 
     @Binding var isToggled: Bool
-    
+    @Binding var isFetching: Bool
+
     @State private var buttonColor: Color = .gray
     @State private var buttonOffset: CGFloat = 0
-    
+
     let capsuleSize: CGFloat
-    
-    init(isToggled: Binding<Bool>, capsuleSize: CGFloat = 60) {
+
+    init(isToggled: Binding<Bool>, isFetching: Binding<Bool>, capsuleSize: CGFloat = 60) {
         self._isToggled = isToggled
+        self._isFetching = isFetching
         self.capsuleSize = capsuleSize
     }
-    
+
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 30)
@@ -44,7 +46,9 @@ struct ToggleSwitchView: View {
                 }
             }
             .onTapGesture {
-                toggleButton()
+                if !isFetching {
+                    toggleButton()
+                }
             }
         }
         .onAppear {
@@ -60,7 +64,7 @@ private extension ToggleSwitchView {
     func initializeToggleState() {
         updateToggleState(animated: false)
     }
-    
+
     func updateToggleState(animated: Bool = true) {
         let animation = animated ? Animation.easeOut(duration: 0.2) : nil
         withAnimation(animation) {
@@ -68,7 +72,7 @@ private extension ToggleSwitchView {
             buttonColor = isToggled ? colorManager.greenColor : colorManager.grayColor
         }
     }
-    
+
     func toggleButton() {
         withAnimation(.easeOut(duration: 0.2)) {
             isToggled.toggle()

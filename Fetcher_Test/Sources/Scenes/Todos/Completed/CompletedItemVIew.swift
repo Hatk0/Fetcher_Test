@@ -11,11 +11,10 @@ struct CompletedItemView: View {
                     .foregroundColor(Color(.systemGray3))
                     .opacity(0.4)
                 
-                Image(systemName: "wifi")
+                Image(systemName: "checkmark")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 20, height: 20)
-                    .foregroundColor(colorManager.greenColor)
+                    .frame(width: 15, height: 15)
             }
             
             Text("Buy Bread")
@@ -23,13 +22,9 @@ struct CompletedItemView: View {
             
             Spacer()
             
-            Button {
-                
-            } label: {
-                Image(systemName: "checkmark.circle.fill")
-                    .frame(width: 20, height: 20)
-                    .foregroundColor(.gray)
-            }
+            Circle()
+                .frame(width: 13, height: 13)
+                .foregroundColor(colorManager.greenColor)
         }
     }
 }

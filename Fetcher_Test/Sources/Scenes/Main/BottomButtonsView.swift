@@ -4,6 +4,9 @@ struct BottomButtonsView: View {
     @EnvironmentObject private var colorManager: ColorManager
     @StateObject private var mainViewModel = MainViewModel()
     
+    @Binding var isFetching: Bool
+    @Binding var infoText: String
+
     @State private var isToggled = false
     
     var body: some View {
@@ -20,12 +23,13 @@ struct BottomButtonsView: View {
                     .background {
                         RoundedRectangle(cornerRadius: 30)
                             .frame(width: 155, height: 45)
-                            .foregroundColor(colorManager.greenColor)
+                            .foregroundColor(canShowResults ? colorManager.greenColor : colorManager.greenColor.opacity(0.5))
                     }
             }
+            .disabled(!canShowResults)
             .padding(.trailing, 160)
             
-            ToggleSwitchView(isToggled: $mainViewModel.isToggled)
+            ToggleSwitchView(isToggled: $mainViewModel.isToggled, isFetching: $isFetching)
                 .onChange(of: mainViewModel.isToggled) { _ in
                     Task {
                         await mainViewModel.fetchBreweries()
@@ -33,5 +37,9 @@ struct BottomButtonsView: View {
                 }
                 .padding(.leading, 235)
         }
+    }
+    
+    private var canShowResults: Bool {
+        infoText == "The fetch successfully completed"
     }
 }

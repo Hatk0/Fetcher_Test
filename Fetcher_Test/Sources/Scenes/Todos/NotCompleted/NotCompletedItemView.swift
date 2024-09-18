@@ -9,25 +9,20 @@ struct NotCompletedItemView: View {
                     .foregroundColor(Color(.systemGray3))
                     .opacity(0.4)
                 
-                Image(systemName: "exclamationmark.shield.fill")
+                Image(systemName: "multiply")
                     .resizable()
                     .scaledToFit()
-                    .frame(width: 20, height: 20)
-                    .foregroundColor(.gray)
+                    .frame(width: 15, height: 15)
             }
             
             Text("Buy Butter")
                 .font(.custom("IBMPlexSans-Medium", size: 17))
             
             Spacer()
-            
-            Button {
-                
-            } label: {
-                Image(systemName: "multiply")
-                    .frame(width: 20, height: 20)
-                    .foregroundColor(.gray)
-            }
+    
+            Circle()
+                .frame(width: 13, height: 13)
+                .foregroundColor(.red)
         }
     }
 }
